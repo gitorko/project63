@@ -1,15 +1,23 @@
 import com.demo.project63.Product;
+import java.util.Map;
 
-rule "Offer for Diamond"
-	when 
-		productObject: Product(type=="diamond")
+rule "Discount Based on Product"
+	when
+		$product: Product(type == "desktop")
 	then
-		productObject.setDiscount(15);
+	    System.out.println("Discount provided for product");
+		$product.setDiscount(15);
 	end
-rule "Offer for Gold"
+
+
+rule "Discount Based on Store A,B,C"
 	when 
-		productObject: Product(type=="gold")
+		$product: Product($regions : regions)
+		$region: Map() from $regions
+		$entry: Map.Entry( $key: key, $val: value ) from $region.entrySet()
+		eval($val.equals("A") || $val.equals("B") || $val.equals("C"))
 	then
-		productObject.setDiscount(25);
+	    System.out.println("Discount provided for product in specific store");
+		$product.setDiscount(10);
 	end
 

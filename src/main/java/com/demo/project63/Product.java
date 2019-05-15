@@ -1,5 +1,7 @@
 package com.demo.project63;
 
+import java.util.Map;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class Product {
     private String type;
     private int discount;
+    private Map<String, String> regions;
 }
