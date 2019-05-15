@@ -17,7 +17,16 @@ rule "Discount Based on Store A,B,C"
 		$entry: Map.Entry( $key: key, $val: value ) from $region.entrySet()
 		eval($val.equals("A") || $val.equals("B") || $val.equals("C"))
 	then
-	    System.out.println("Discount provided for product in specific store");
+	    System.out.println("Discount provided for product in specific region");
 		$product.setDiscount(10);
 	end
 
+rule "Discount Based Manufacturer"
+	when
+		$product: Product($manufacturers : manufacturers)
+		$manufacturer: String() from $manufacturers
+		eval($manufacturer.equals("Company1") || $manufacturer.equals("Company2"))
+	then
+	    System.out.println("Discount provided for manufacturer");
+		$product.setDiscount(5);
+	end
